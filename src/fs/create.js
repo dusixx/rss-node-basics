@@ -1,8 +1,8 @@
 import { writeFile } from 'node:fs/promises';
 import { FSOperationError, resolvePath } from "../utils.js";
 
-// NOTE: To run, enter in the terminal --> node src/fs/create.js
-// Similarly for all other scripts
+// NOTE: To run, enter in the terminal --> npm run fs:create
+// See the rest of the scripts in --> package.json ("scripts" section)
 
 const FILE_CONTENTS = "I am fresh and young";
 
