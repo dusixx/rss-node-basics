@@ -1,6 +1,12 @@
 import { styleText } from "util";
 
-export const isStr = v => typeof v === 'string';
+/**
+ * @param {number} ms 
+ * @returns {Promise<void>}
+ */
+export const wait = (ms) => {
+  return new Promise(r => setTimeout(r, ms));
+}
 
 export const Log = {
   /**
