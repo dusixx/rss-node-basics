@@ -3,6 +3,9 @@ import { fileURLToPath } from "url";
 import { release, version } from 'os';
 import { createServer as createServerHttp } from 'http';
 import './files/c.cjs';
+import { Log } from '../utils/misc.js';
+
+const PORT = 3000;
 
 const importJSON = async (path) => await import(path, { with: { type: 'json' } })
 
@@ -19,15 +22,12 @@ console.log(`Version ${version()}`);
 console.log(`Path segment separator is "${path.sep}"`);
 console.log(`Path to current file is ${__filename}`);
 console.log(`Path to current directory is ${__dirname}`);
+console.log(unknownObject);
 
 export const myServer = createServerHttp((_, res) => {
   res.end('Request accepted');
 });
-const PORT = 3000;
-
-console.log(unknownObject);
-
 myServer.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
-  console.log('To terminate it, use Ctrl+C combination');
+  console.log(`\nServer is listening on port ${PORT}`);
+  Log.info('Use <Ctrl+C> to terminate');
 });
