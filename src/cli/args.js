@@ -1,3 +1,8 @@
+import { Log } from "../utils/misc.js";
+
+// NOTE: To test the script, use --> npm run cli:args
+// Or use command --> node src/cli/args.js --some-arg value1 --other 1337 --arg2 42
+
 const parseArgs = () => {
   const map = {};
   let cur;
@@ -12,7 +17,8 @@ const parseArgs = () => {
   const res = Object.entries(map).map(([k, v]) => {
     return `${k} is ${v}`
   });
-  console.log(res.join(' '));
+  Log.info('\nParsed argv:');
+  console.log(res.join(', '));
 };
 
 parseArgs();
