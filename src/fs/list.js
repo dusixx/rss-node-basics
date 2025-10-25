@@ -1,14 +1,15 @@
-import { FSOperationError, getDirents, pathExists, resolvePath } from "../utils.js";
+import { checkPath, FSOperationError, getDirents, resolvePath } from "../utils/fs.js";
+import { Log } from "../utils/misc.js";
 
 const list = async () => {
   const src = resolvePath('fs/files');
-  if (!await pathExists(src)) {
+
+  const { exists } = await checkPath(src);
+  if (!exists) {
     throw new FSOperationError()
   }
-  const dirents = await getDirents(src);
-  if (!dirents) {
-    console.log('Nothing to list');
-  }
+  const dirents = await getDirents(src) || [];
+  Log.info('\nFiles list:');
   for (const ent of dirents) {
     if (ent.isFile()) {
       console.log(ent.name);

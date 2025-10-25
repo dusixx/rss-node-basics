@@ -1,24 +1,16 @@
 import { writeFile } from 'node:fs/promises';
-import { FSOperationError, resolvePath } from "../utils.js";
-
-// NOTE: To run, enter in the terminal --> npm run fs:create
-// See the rest of the scripts in --> package.json ("scripts" section)
-
-const FILE_CONTENTS = "I am fresh and young";
+import { checkPath, FSOperationError, resolvePath } from "../utils/fs.js";
+import { Log } from '../utils/misc.js';
 
 const create = async () => {
-  const targetPath = resolvePath('fs/files/fresh.txt');
-  try {
-    await writeFile(targetPath, FILE_CONTENTS, {
-      flag: 'wx'
-    });
-  } catch (err) {
-    if (err.code === 'EEXIST') {
-      throw new FSOperationError();
-    } else {
-      console.log(`Error: ${err.message}`);
-    }
+  const dst = resolvePath('fs/files/fresh.txt');
+
+  const { isFile, exists } = await checkPath(dst);
+  if (isFile && exists) {
+    throw new FSOperationError();
   }
+  await writeFile(dst, 'I am fresh and young', { flag: 'wx' });
+  Log.success('\nSuccessfully created!')
 };
 
 await create();
