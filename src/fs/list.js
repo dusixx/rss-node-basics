@@ -1,5 +1,4 @@
-import { checkPath, FSOperationError, getDirents, resolvePath } from "../utils/fs.js";
-import { Log } from "../utils/misc.js";
+import { checkPath, FSOperationError, getDirents, resolvePath, Log } from "../utils/index.js";
 
 const list = async () => {
   const src = resolvePath('fs/files');

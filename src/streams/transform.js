@@ -1,7 +1,6 @@
+import { writeInputToStream, Log } from '../utils/index.js';
 import { Transform } from 'stream';
-import { writeInputToStream } from '../utils/stream.js';
 import { EOL } from 'os';
-import { Log } from '../utils/misc.js';
 
 const transformStream = new Transform({
   transform(chunk, _, callback) {

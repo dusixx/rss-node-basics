@@ -1,6 +1,5 @@
-import { checkPath, FSOperationError, resolvePath } from "../utils/fs.js";
+import { checkPath, FSOperationError, resolvePath, Log } from "../utils/index.js";
 import fs from 'fs/promises';
-import { Log } from "../utils/misc.js";
 
 const rename = async () => {
   const src = resolvePath('fs/files/wrongFilename.txt');

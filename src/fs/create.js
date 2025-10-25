@@ -1,6 +1,5 @@
 import { writeFile } from 'node:fs/promises';
-import { checkPath, FSOperationError, resolvePath } from "../utils/fs.js";
-import { Log } from '../utils/misc.js';
+import { checkPath, FSOperationError, resolvePath, Log } from "../utils/index.js";
 
 const create = async () => {
   const dst = resolvePath('fs/files/fresh.txt');

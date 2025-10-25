@@ -1,8 +1,7 @@
-import { checkPath, FSOperationError, resolvePath } from "../utils/fs.js";
+import { checkPath, FSOperationError, resolvePath, Log } from "../utils/index.js";
 import crypto from 'crypto';
 import stream from 'stream/promises';
 import fs from 'fs';
-import { Log } from "../utils/misc.js";
 
 const VALID_HASH = '7b90ad9e325c1c22b15c36cbe19413e3c471e5a711b8b828c8ebfcfd71d1d6db'
 
