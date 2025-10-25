@@ -15,7 +15,7 @@ const parseEnv = () => {
     return res;
   }, []);
   Log.info('\nParsed env:');
-  console.log(result.join('; '))
+  console.log(result.join('; ') || '(there is nothing here)')
 };
 
 parseEnv();

@@ -32,8 +32,8 @@ const spawnChildProcess = async (args) => {
   child.on('message', (msg) => {
     console.log(`[child]: ${JSON.stringify(msg)}\n`);
     child.disconnect();
-    console.log(Log.style("bgCyanBright", "Input something and press Enter"));
-    console.log(Log.style("bgCyanBright", "Type 'CLOSE' or use <Ctrl+C> to exit\n"));
+    console.log("Input something and press", Log.style("bgCyanBright", "Enter"));
+    console.log(`Type ${Log.style("bgCyanBright", "CLOSE")} or use ${Log.style("bgCyanBright", "Ctrl+C")} to exit\n`);
   });
 };
 

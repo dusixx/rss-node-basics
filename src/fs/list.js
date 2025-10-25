@@ -1,19 +1,19 @@
-import { checkPath, FSOperationError, getDirents, resolvePath, Log } from "../utils/index.js";
+import { checkPath, FSOperationError, getDirents, Log, resolvePath } from "../utils/index.js";
+
+const SRC_PATH = 'fs/files';
 
 const list = async () => {
-  const src = resolvePath('fs/files');
+  const src = resolvePath(SRC_PATH);
 
   const { exists } = await checkPath(src);
   if (!exists) {
     throw new FSOperationError()
   }
-  const dirents = await getDirents(src) || [];
-  Log.info('\nFiles list:');
-  for (const ent of dirents) {
-    if (ent.isFile()) {
-      console.log(ent.name);
-    }
-  }
+  const list = (await getDirents(src) ?? []).reduce((res, ent) => {
+    return res.concat(ent.isFile() ? ent.name : []);
+  }, []);
+  Log.info(`\n${SRC_PATH}:`);
+  console.log(list.length ? list.join('\n') : '(there is nothing here)');
 };
 
 await list();

@@ -1,6 +1,6 @@
-import { writeInputToStream, Log } from '../utils/index.js';
-import { Transform } from 'stream';
 import { EOL } from 'os';
+import { Transform } from 'stream';
+import { Log, writeInputToStream } from '../utils/index.js';
 
 const transformStream = new Transform({
   transform(chunk, _, callback) {
@@ -10,7 +10,7 @@ const transformStream = new Transform({
   }
 });
 const transform = async () => {
-  Log.info('\nType ".exit" or use <Ctrl+C> to finish\n');
+  console.log(`\nType ${Log.style("bgCyanBright", ".exit")} or use ${Log.style("bgCyanBright", "Ctrl+C")} to finish\n`);
   writeInputToStream({ transformStream });
 };
 

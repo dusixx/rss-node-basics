@@ -1,17 +1,9 @@
 import { styleText } from "util";
-
-/**
- * @param {number} ms 
- * @returns {Promise<void>}
- */
-export const wait = (ms) => {
-  return new Promise(r => setTimeout(r, ms));
-}
+import { Worker } from 'worker_threads';
 
 export const Log = {
   /**
    * @param  {Parameters<typeof styleText>} args 
-   * @returns 
    */
   style(...args) {
     return styleText(...args);
@@ -25,4 +17,16 @@ export const Log = {
   error(...args) {
     console.log(styleText("bgRedBright", args.join(' ')));
   }
+}
+
+/**
+ * @param {string} workerPath 
+ * @param {unknown} workerData 
+ */
+export const createWorker = (workerPath, workerData) => {
+  return new Promise((resolve, reject) => {
+    new Worker(workerPath, { workerData })
+      .on('message', resolve)
+      .on('error', reject);
+  });
 }

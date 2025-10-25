@@ -18,7 +18,7 @@ const sendResult = () => {
   try {
     const result = nthFibonacci(data);
     // simulate error
-    if (Math.random() < 0.5) {
+    if (Math.random() < 0.3) {
       throw new Error("Something wrong");
     }
     message.status = 'resolved';

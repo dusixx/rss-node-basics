@@ -1,6 +1,7 @@
+import fs from 'fs/promises';
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
-import fs from 'fs/promises';
+import { Log } from "./misc.js";
 
 const checkAccess = async (path, mode) => {
   try {
@@ -12,7 +13,7 @@ const checkAccess = async (path, mode) => {
 }
 
 export class FSOperationError extends Error {
-  constructor(message = "FS operation failed") {
+  constructor(message = Log.style("bgRedBright", "FS operation failed")) {
     super();
     this.message = message;
   }

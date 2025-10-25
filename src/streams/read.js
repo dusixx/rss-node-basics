@@ -1,5 +1,5 @@
-import { resolvePath, FSOperationError, checkPath, Log } from "../utils/index.js";
 import fs from 'fs';
+import { checkPath, FSOperationError, Log, resolvePath } from "../utils/index.js";
 
 const read = async () => {
   const src = resolvePath('streams/files/fileToRead.txt');

@@ -1,10 +1,14 @@
-import { resolvePath, Log, gzipFile } from "../utils/index.js";
+import { Log, gzipFile, resolvePath } from "../utils/index.js";
+
+const SRC_PATH = 'zip/files/fileToCompress.txt';
+const DST_PATH = 'zip/files/archive.gz';
 
 const compress = async () => {
-  const src = resolvePath('zip/files/fileToCompress.txt');
-  const dst = resolvePath('zip/files/archive.gz');
+  const src = resolvePath(SRC_PATH);
+  const dst = resolvePath(DST_PATH);
 
   await gzipFile(src, dst);
+  console.log(`\n${SRC_PATH} -> ${DST_PATH}`)
   Log.success('\nSuccessfully compressed!');
 };
 

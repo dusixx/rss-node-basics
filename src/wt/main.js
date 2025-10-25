@@ -1,17 +1,8 @@
-import { checkPath, FSOperationError, resolvePath, Log } from '../utils/index.js';
-import { Worker } from 'worker_threads';
 import { cpus } from 'os';
+import { checkPath, createWorker, FSOperationError, Log, resolvePath } from '../utils/index.js';
 
 const INIT_NUM = 10;
 const LOGICAL_CPU_CORES_LEN = cpus().length;
-
-const createWorker = (workerPath, workerData) => {
-  return new Promise((resolve, reject) => {
-    new Worker(workerPath, { workerData })
-      .on('message', resolve)
-      .on('error', reject);
-  });
-}
 
 const runFibCalcTasks = async (workerPath) => {
   const workers = Array

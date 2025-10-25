@@ -1,16 +1,15 @@
+import { createServer as createServerHttp } from 'http';
+import { release, version } from 'os';
 import path, { dirname } from 'path';
 import { fileURLToPath } from "url";
-import { release, version } from 'os';
-import { createServer as createServerHttp } from 'http';
-import './files/c.cjs';
 import { Log } from '../utils/misc.js';
+import './files/c.cjs';
 
 const PORT = 3000;
-
-const importJSON = async (path) => await import(path, { with: { type: 'json' } })
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+const importJSON = async (path) => await import(path, { with: { type: 'json' } })
 
 export const unknownObject = (Math.random() > 0.5
   ? await importJSON('./files/a.json')
@@ -29,5 +28,5 @@ export const myServer = createServerHttp((_, res) => {
 });
 myServer.listen(PORT, () => {
   console.log(`\nServer is listening on port ${PORT}`);
-  Log.info('Use <Ctrl+C> to terminate');
+  console.log(`${Log.style("bgCyanBright", "Ctrl+C")} to exit\n`);
 });

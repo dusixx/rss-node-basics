@@ -18,7 +18,7 @@ const parseArgs = () => {
     return `${k} is ${v}`
   });
   Log.info('\nParsed argv:');
-  console.log(res.join(', '));
+  console.log(res.join(', ') || '(there is nothing here)');
 };
 
 parseArgs();

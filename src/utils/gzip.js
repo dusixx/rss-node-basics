@@ -1,7 +1,7 @@
-import { checkPath, FSOperationError } from "./fs.js";
-import zlib from 'zlib';
-import stream from 'stream/promises';
 import fs from 'fs';
+import stream from 'stream/promises';
+import zlib from 'zlib';
+import { checkPath, FSOperationError } from "./fs.js";
 
 /**
  * @param {string} src 
@@ -27,10 +27,18 @@ const process = async (src, dst, { flag = 'gzip', deleteSource = true } = {}) =>
   });
 };
 
+/**
+ * @param {string} src 
+ * @param {string} dst 
+ */
 export const gzipFile = async (src, dst) => {
   await process(src, dst);
 }
 
+/**
+ * @param {string} src 
+ * @param {string} dst 
+ */
 export const gunzipFile = async (src, dst) => {
   await process(src, dst, { flag: 'gunzip' })
 }

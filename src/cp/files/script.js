@@ -13,7 +13,6 @@ stdin.on('data', (chunk) => {
   }
   stdout.write(`Received from master process: ${chunkStringified}${EOL}`);
 });
-
 // handle IPC channel messages from parent
 process.on('message', (msg) => {
   console.log("IPC channel testing:");

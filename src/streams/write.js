@@ -1,5 +1,5 @@
-import { checkPath, FSOperationError, resolvePath, writeInputToStream, Log } from "../utils/index.js";
 import path from 'path';
+import { checkPath, FSOperationError, Log, resolvePath, writeInputToStream } from "../utils/index.js";
 
 const write = async () => {
   const filePath = resolvePath('streams/files/fileToWrite.txt');
@@ -9,8 +9,8 @@ const write = async () => {
     throw new FSOperationError();
   }
   const { name, ext } = path.parse(filePath);
-  console.log(`\nAll input will be saved to "${name}${ext}"`);
-  Log.info('Type ".exit" or use <Ctrl+C> to finish\n');
+  console.log(`\nAll input will be saved to ${Log.style("bgCyanBright", name + ext)}`);
+  console.log(`Type ${Log.style("bgCyanBright", ".exit")} or use ${Log.style("bgCyanBright", "Ctrl+C")} to finish\n`);
 
   await writeInputToStream({ filePath });
 };
