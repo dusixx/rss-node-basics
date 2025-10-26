@@ -6,9 +6,14 @@ import { Transform } from "stream";
 import { checkPath } from './fs.js';
 
 /**
- * @param {{transformStream: Transform | undefined, filePath: string, exitCmd: string}} props
+ * @param {{
+ *  transformStream: Transform | undefined, 
+ *  filePath: string, 
+ *  exitCmd: string, 
+ *  onClose: () => void
+ * }}
  */
-export const writeInputToStream = async ({ transformStream, filePath, exitCmd = '.exit' } = {}) => {
+export const writeInputToStream = async ({ transformStream, filePath, exitCmd = '.exit', onClose } = {}) => {
   const { isFile, writeable } = await checkPath(filePath);
   let writeStream = isFile && writeable ? fs.createWriteStream(filePath) : null;
 
@@ -23,11 +28,16 @@ export const writeInputToStream = async ({ transformStream, filePath, exitCmd = 
   rl.on('line', (line) => {
     if (line.trim() === exitCmd) {
       rl.close();
+    } else {
+      writeStream.write(`${line}${EOL}`);
+      rl.prompt();
     }
-    writeStream.write(`${line}${EOL}`);
-    rl.prompt();
-  }).on('close', () => {
-    writeStream.end();
-    process.exit(0);
   });
+  return new Promise((resolve) => {
+    rl.on('close', () => {
+      writeStream.end();
+      onClose?.();
+      resolve();
+    });
+  })
 };

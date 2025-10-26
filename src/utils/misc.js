@@ -9,13 +9,13 @@ export const Log = {
     return styleText(...args);
   },
   success(...args) {
-    console.log(styleText("bgGreenBright", args.join(' ')));
+    console.log(styleText("bgGreen", args.join(' ')));
   },
   info(...args) {
-    console.log(styleText("bgCyanBright", args.join(' ')));
+    console.log(styleText("bgBlackBright", args.join(' ')));
   },
   error(...args) {
-    console.log(styleText("bgRedBright", args.join(' ')));
+    console.log(styleText("bgRed", args.join(' ')));
   }
 }
 
