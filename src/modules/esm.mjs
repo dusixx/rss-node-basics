@@ -27,6 +27,7 @@ export const myServer = createServerHttp((_, res) => {
   res.end('Request accepted');
 });
 myServer.listen(PORT, () => {
-  console.log(`\nServer is listening on port ${PORT}`);
-  console.log(`${Log.style("bgCyanBright", "Ctrl+C")} to exit\n`);
+  console.log();
+  console.log(`Server is listening on port ${PORT}`);
+  Log.info(`<Ctrl+C> to exit`);
 });
