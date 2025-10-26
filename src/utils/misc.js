@@ -22,11 +22,17 @@ export const Log = {
 /**
  * @param {string} workerPath 
  * @param {unknown} workerData 
+ * @param {boolean} needOnce
  */
-export const createWorker = (workerPath, workerData) => {
+export const createWorker = (workerPath, workerData, needOnce = true) => {
   return new Promise((resolve, reject) => {
-    new Worker(workerPath, { workerData })
-      .on('message', resolve)
+    const worker = new Worker(workerPath, { workerData });
+    worker.on('message', (result) => {
+      resolve(result);
+      if (needOnce) {
+        worker.terminate();
+      }
+    })
       .on('error', reject);
   });
 }

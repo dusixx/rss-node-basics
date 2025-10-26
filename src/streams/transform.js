@@ -1,10 +1,15 @@
 import { Transform } from 'stream';
 import { Log, writeInputToStream } from '../utils/index.js';
 
+const reverse = (chunk) => {
+  return chunk.toString().replace(/\s+$/, '').split('').reverse().join('');
+}
 const transformStream = new Transform({
   transform(chunk, _, callback) {
-    const line = chunk.toString().replace(/\s+$/, '').split('').reverse().join('')
-    this.push(`${Log.style('blackBright', 'reversed:')} ${line}\n`);
+    const line = reverse(chunk);
+    if (line) {
+      this.push(`${Log.style('blackBright', 'reversed:')} ${line}\n`);
+    }
     callback();
   }
 });
