@@ -11,7 +11,7 @@ stdin.on('data', (chunk) => {
   if (chunkStringified.trim() === 'CLOSE') {
     exit(0);
   }
-  stdout.write(`Received from master process: ${chunkStringified}${EOL}`);
+  stdout.write(`Received from master process: ${chunkStringified}`);
 });
 // handle IPC channel messages from parent
 process.on('message', (msg) => {

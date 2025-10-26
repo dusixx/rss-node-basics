@@ -1,12 +1,13 @@
 import { spawn } from 'child_process';
-import { checkPath, resolvePath } from '../utils/fs.js';
-import { Log } from '../utils/misc.js';
+import { checkPath, Log, resolvePath } from '../utils/index.js';
+
+const CP_PATH = 'cp/files/script.js';
 
 const spawnChildProcess = async (args) => {
-  const childPath = resolvePath('cp/files/script.js');
+  const childPath = resolvePath(CP_PATH);
 
-  const { exists } = await checkPath(childPath);
-  if (!exists) {
+  const { exists, isFile } = await checkPath(childPath);
+  if (!exists || !isFile) {
     throw new FSOperationError();
   }
   const argv = Array.isArray(args) ? args : [];
@@ -19,8 +20,7 @@ const spawnChildProcess = async (args) => {
 
   process.on('exit', () => {
     child.kill();
-  });
-  process.on('SIGINT', () => {
+  }).on('SIGINT', () => {
     child.kill('SIGINT');
     process.exit(0);
   });
@@ -30,10 +30,10 @@ const spawnChildProcess = async (args) => {
   }
   // handle IPC channel messages from child
   child.on('message', (msg) => {
-    console.log(`[child]: ${JSON.stringify(msg)}\n`);
+    console.log(`[child]: ${JSON.stringify(msg)}`);
     child.disconnect();
-    console.log("Input something and press", Log.style("bgCyanBright", "Enter"));
-    console.log(`Type ${Log.style("bgCyanBright", "CLOSE")} or use ${Log.style("bgCyanBright", "Ctrl+C")} to exit\n`);
+    Log.info('\nInput something and press <Enter>');
+    Log.info(`Type "CLOSE" or use <Ctrl+C> to exit\n`);
   });
 };
 
