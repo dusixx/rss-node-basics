@@ -11,12 +11,12 @@ const copy = async () => {
   const srcInfo = await checkPath(src);
   const dstInfo = await checkPath(dst);
 
-  if (!srcInfo.exists || dstInfo.exists) {
+  const canBeCopied = srcInfo.exists && !srcInfo.isFile && !dstInfo.exists;
+  if (!canBeCopied) {
     throw new FSOperationError();
   }
   await fs.cp(src, dst, { recursive: true });
-  console.log(`\n${SRC_PATH} -> ${DST_PATH}`)
-  Log.success('\nSuccessfully copied!')
+  console.log('\n', Log.style("green", '✓ copied:'), `${SRC_PATH} -> ${DST_PATH}`);
 };
 
 await copy();

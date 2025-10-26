@@ -11,12 +11,12 @@ const rename = async () => {
   const srcInfo = await checkPath(src);
   const dstInfo = await checkPath(dst);
 
-  if (!srcInfo.exists || dstInfo.exists) {
+  const canBeRenamed = srcInfo.exists && srcInfo.isFile && !dstInfo.exists;
+  if (!canBeRenamed) {
     throw new FSOperationError();
   }
   await fs.rename(src, dst);
-  console.log(`\n${SRC_PATH} -> ${DST_PATH}`)
-  Log.success('\nSuccessfully renamed!')
+  console.log('\n', Log.style("green", '✓ renamed:'), `${SRC_PATH} -> ${DST_PATH}`);
 };
 
 await rename();

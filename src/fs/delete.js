@@ -11,8 +11,7 @@ const remove = async () => {
     throw new FSOperationError();
   }
   await fs.unlink(src);
-  console.log(`\n${SRC_PATH}`);
-  Log.success('\nSuccessfully deleted!')
+  console.log('\n', Log.style("green", '✓ deleted:'), SRC_PATH);
 };
 
 await remove();

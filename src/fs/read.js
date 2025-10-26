@@ -6,8 +6,8 @@ const SRC_PATH = 'fs/files/fileToRead.txt';
 const read = async () => {
   const src = resolvePath(SRC_PATH);
 
-  const { exists } = await checkPath(src);
-  if (!exists) {
+  const { exists, isFile } = await checkPath(src);
+  if (!exists || !isFile) {
     throw new FSOperationError();
   }
   Log.info(`\n${SRC_PATH} contents:`);
