@@ -1,15 +1,18 @@
 import fs from 'fs';
 import { checkPath, FSOperationError, Log, resolvePath } from "../utils/index.js";
 
-const read = async () => {
-  const src = resolvePath('streams/files/fileToRead.txt');
+const DST_PATH = 'streams/files/fileToRead.txt'
 
-  const { exists } = await checkPath(src);
-  if (!exists) {
+const read = async () => {
+  const src = resolvePath(DST_PATH);
+
+  const { exists, isFile } = await checkPath(src);
+  if (!exists || !isFile) {
     throw new FSOperationError();
   }
-  Log.info('\nFile contents:');
-  fs.createReadStream(src).pipe(process.stdout);
-};
+  const readStream = fs.createReadStream(src);
+  readStream.on('end', () => console.log()).pipe(process.stdout);
+  Log.info(`\n${DST_PATH} contents:`);
+}
 
 await read();

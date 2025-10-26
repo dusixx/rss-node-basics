@@ -4,15 +4,16 @@ import { checkPath, FSOperationError, Log, resolvePath, writeInputToStream } fro
 const write = async () => {
   const filePath = resolvePath('streams/files/fileToWrite.txt');
 
-  const { exists } = await checkPath(filePath);
-  if (!exists) {
+  const { exists, isFile } = await checkPath(filePath);
+  if (!exists || !isFile) {
     throw new FSOperationError();
   }
   const { name, ext } = path.parse(filePath);
-  console.log(`\nAll input will be saved to ${Log.style("bgCyanBright", name + ext)}`);
-  console.log(`Type ${Log.style("bgCyanBright", ".exit")} or use ${Log.style("bgCyanBright", "Ctrl+C")} to finish\n`);
+  Log.info('\nInput something and press <Enter>');
+  Log.info(`All input will be saved to <${name}${ext}>`);
+  Log.info(`Type ".exit" or use <Ctrl+C> to finish\n`);
 
-  await writeInputToStream({ filePath });
+  await writeInputToStream({ filePath, onClose: () => process.exit(0) });
 };
 
 await write();
