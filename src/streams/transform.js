@@ -14,7 +14,7 @@ const transformStream = new Transform({
   }
 });
 const transform = async () => {
-  Log.info('\nInput something and press <Enter>');
+  Log.info('Input something and press <Enter>');
   Log.info('Type ".exit" or use <Ctrl+C> to exit\n');
 
   await writeInputToStream({ transformStream, onClose: () => process.exit(0) });

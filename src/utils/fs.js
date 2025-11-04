@@ -1,6 +1,5 @@
 import fs from 'fs/promises';
-import path, { dirname } from "path";
-import { fileURLToPath } from "url";
+import path from "path";
 import { Log } from "./misc.js";
 
 const checkAccess = async (path, mode) => {
@@ -12,6 +11,10 @@ const checkAccess = async (path, mode) => {
   }
 }
 
+export const pathExists = async (path) => {
+  return await checkAccess(path);
+}
+
 export class FSOperationError extends Error {
   constructor(message = Log.style("bgRedBright", "FS operation failed")) {
     super();
@@ -20,12 +23,7 @@ export class FSOperationError extends Error {
 }
 
 export const resolvePath = (...parts) => {
-  const src = dirname(fileURLToPath(import.meta.url));
-  return path.resolve(path.parse(src).dir, ...parts);
-}
-
-export const pathExists = async (path) => {
-  return await checkAccess(path);
+  return path.resolve(import.meta.dirname, '..', ...parts);
 }
 
 export const getDirents = async (dirPath) => {

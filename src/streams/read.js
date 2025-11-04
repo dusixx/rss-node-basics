@@ -12,7 +12,7 @@ const read = async () => {
   }
   const readStream = fs.createReadStream(src);
   readStream.on('end', () => console.log()).pipe(process.stdout);
-  Log.info(`\n${DST_PATH} contents:`);
+  Log.info(`${DST_PATH} contents:`);
 }
 
 await read();

@@ -3,7 +3,7 @@ import { argv, exit, stdin, stdout } from 'node:process';
 
 const args = argv.slice(2);
 
-console.log(`\nTotal number of arguments is ${args.length}`);
+console.log(`Total number of arguments is ${args.length}`);
 console.log(`Arguments: ${JSON.stringify(args)}${EOL}`);
 
 stdin.on('data', (chunk) => {

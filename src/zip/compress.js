@@ -12,7 +12,7 @@ const compress = async () => {
     throw new FSOperationError();
   }
   await gzipFile(src, dst);
-  console.log('\n', Log.style("green", '✓ compressed:'), `${SRC_PATH} -> ${DST_PATH}`);
+  console.log(Log.style("green", '✓ compressed:'), `${SRC_PATH} -> ${DST_PATH}`);
 };
 
 await compress();

@@ -7,13 +7,14 @@ import { checkPath } from './fs.js';
 
 /**
  * @param {{
- *  transformStream: Transform | undefined, 
+ *  transformStream: Transform, 
  *  filePath: string, 
  *  exitCmd: string, 
+ *  prompt: string
  *  onClose: () => void
  * }}
  */
-export const writeInputToStream = async ({ transformStream, filePath, exitCmd = '.exit', onClose } = {}) => {
+export const writeInputToStream = async ({ transformStream, filePath, exitCmd = '.exit', prompt = '> ', onClose } = {}) => {
   const { isFile, writeable } = await checkPath(filePath);
   let writeStream = isFile && writeable ? fs.createWriteStream(filePath) : null;
 
@@ -22,7 +23,7 @@ export const writeInputToStream = async ({ transformStream, filePath, exitCmd = 
     writeStream = transformStream;
   }
   const rl = readline.createInterface({ input: stdin, output: stdout });
-  rl.setPrompt('> ');
+  rl.setPrompt(prompt);
   rl.prompt();
 
   rl.on('line', (line) => {

@@ -10,7 +10,7 @@ const read = async () => {
   if (!exists || !isFile) {
     throw new FSOperationError();
   }
-  Log.info(`\n${SRC_PATH} contents:`);
+  Log.info(`${SRC_PATH} contents:`);
   console.log(await fs.readFile(src, 'utf-8'));
 };
 

@@ -1,4 +1,4 @@
-import { spawn } from 'child_process';
+import { fork } from 'child_process';
 import { checkPath, Log, resolvePath } from '../utils/index.js';
 
 const CP_PATH = 'cp/files/script.js';
@@ -10,13 +10,7 @@ const spawnChildProcess = async (args) => {
   if (!exists || !isFile) {
     throw new FSOperationError();
   }
-  const argv = Array.isArray(args) ? args : [];
-
-  const child = spawn('node', [childPath, ...argv], {
-    stdio: ['pipe', 'pipe', 'inherit', 'ipc']
-  });
-  process.stdin.pipe(child.stdin);
-  child.stdout.pipe(process.stdout);
+  const child = fork(childPath, args);
 
   process.on('exit', () => {
     child.kill();

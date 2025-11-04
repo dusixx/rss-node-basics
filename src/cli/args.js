@@ -16,7 +16,7 @@ const parseArgs = () => {
   const res = Object.entries(map).map(([k, v]) => {
     return `${k} is ${v}`
   });
-  Log.info('\nParsed argv:');
+  Log.info('Parsed argv:');
   console.log(res.join(', ') || '(there is nothing here)');
 };
 

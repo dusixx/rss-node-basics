@@ -9,7 +9,7 @@ const write = async () => {
     throw new FSOperationError();
   }
   const { name, ext } = path.parse(filePath);
-  Log.info('\nInput something and press <Enter>');
+  Log.info('Input something and press <Enter>');
   Log.info(`All input will be saved to <${name}${ext}>`);
   Log.info(`Type ".exit" or use <Ctrl+C> to finish\n`);
 

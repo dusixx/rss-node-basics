@@ -14,7 +14,7 @@ const calculateHash = async () => {
   await stream.pipeline(fs.createReadStream(src), sha256);
   const hash = sha256.digest('hex');
 
-  console.log(Log.style("green", `\n✓ [SHA256]:`), hash);
+  console.log(Log.style("green", `✓ [SHA256]:`), hash);
 };
 
 await calculateHash();

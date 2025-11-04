@@ -16,7 +16,7 @@ const copy = async () => {
     throw new FSOperationError();
   }
   await fs.cp(src, dst, { recursive: true });
-  console.log('\n', Log.style("green", '✓ copied:'), `${SRC_PATH} -> ${DST_PATH}`);
+  console.log(Log.style("green", '✓ copied:'), `${SRC_PATH} -> ${DST_PATH}`);
 };
 
 await copy();

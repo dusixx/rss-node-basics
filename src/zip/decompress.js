@@ -12,7 +12,7 @@ const decompress = async () => {
     throw new FSOperationError();
   }
   await gunzipFile(src, dst);
-  console.log('\n', Log.style("green", '✓ decompressed:'), `${SRC_PATH} -> ${DST_PATH}`);
+  console.log(Log.style("green", '✓ decompressed:'), `${SRC_PATH} -> ${DST_PATH}`);
 };
 
 await decompress();

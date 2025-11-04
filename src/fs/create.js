@@ -7,12 +7,12 @@ const CONTENTS = 'I am fresh and young';
 const create = async () => {
   const dst = resolvePath(DST_PATH);
 
-  const { isFile, exists } = await checkPath(dst);
-  if (exists && isFile) {
+  const { exists } = await checkPath(dst);
+  if (exists) {
     throw new FSOperationError();
   }
   await writeFile(dst, CONTENTS);
-  console.log('\n', Log.style("green", '✓ created:'), DST_PATH);
+  console.log(Log.style("green", '✓ created:'), DST_PATH);
 };
 
 await create();

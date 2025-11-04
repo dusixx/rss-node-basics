@@ -2,9 +2,7 @@ import { styleText } from "util";
 import { Worker } from 'worker_threads';
 
 export const Log = {
-  /**
-   * @param  {Parameters<typeof styleText>} args 
-   */
+  /** @param  {Parameters<typeof styleText>} args */
   style(...args) {
     return styleText(...args);
   },

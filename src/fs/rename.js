@@ -16,7 +16,7 @@ const rename = async () => {
     throw new FSOperationError();
   }
   await fs.rename(src, dst);
-  console.log('\n', Log.style("green", '✓ renamed:'), `${SRC_PATH} -> ${DST_PATH}`);
+  console.log(Log.style("green", '✓ renamed:'), `${SRC_PATH} -> ${DST_PATH}`);
 };
 
 await rename();

@@ -12,7 +12,8 @@ const list = async () => {
   const list = (await getDirents(src) ?? []).reduce((res, ent) => {
     return res.concat(ent.isFile() ? ent.name : []);
   }, []);
-  Log.info(`\n${SRC_PATH}:`);
+
+  Log.info(`List of files in ${SRC_PATH}:`);
   console.table(list.length ? list : '(there is nothing here)');
 };
 
