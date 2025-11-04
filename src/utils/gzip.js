@@ -7,7 +7,7 @@ import zlib from 'zlib';
  * @param {string} dst 
  * @param {{method: 'Gzip' | 'Gunzip', deleteSource: boolean}} options
  */
-const create = async (src, dst, { method = 'Gzip', deleteSource = true } = {}) => {
+const gzipUnzip = async (src, dst, { method = 'Gzip', deleteSource = true } = {}) => {
   const gzip = zlib[`create${method}`]();
   const readStream = fs.createReadStream(src);
   const writeStream = fs.createWriteStream(dst);
@@ -23,7 +23,7 @@ const create = async (src, dst, { method = 'Gzip', deleteSource = true } = {}) =
  * @param {string} dst 
  */
 export const gzipFile = async (src, dst) => {
-  return await create(src, dst, { method: 'Gzip' });
+  return await gzipUnzip(src, dst, { method: 'Gzip' });
 }
 
 /**
@@ -31,5 +31,5 @@ export const gzipFile = async (src, dst) => {
  * @param {string} dst 
  */
 export const gunzipFile = async (src, dst) => {
-  return await create(src, dst, { method: 'Gunzip' })
+  return await gzipUnzip(src, dst, { method: 'Gunzip' })
 }
