@@ -1,6 +1,4 @@
-import { Log } from "../utils/misc.js";
-
-// NOTE: To run the script, use --> npm run cli:env
+import { Log } from "../utils/index.js";
 
 const parseEnv = () => {
   const result = Object.entries(process.env).reduce((res, [k, v]) => {

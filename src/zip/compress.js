@@ -9,7 +9,7 @@ const compress = async () => {
 
   const { exists, isFile } = await checkPath(src);
   if (!exists || !isFile) {
-    throw new FSOperationError();
+    throw new FSOperationError('ssssssssss');
   }
   await gzipFile(src, dst);
   console.log(Log.style("green", '✓ compressed:'), `${SRC_PATH} -> ${DST_PATH}`);

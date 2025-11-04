@@ -36,7 +36,6 @@ export const writeInputToStream = async ({ transformStream, filePath, exitCmd = 
   });
   return new Promise((resolve) => {
     rl.on('close', () => {
-      writeStream.end();
       onClose?.();
       resolve();
     });

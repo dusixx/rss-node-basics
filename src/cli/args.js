@@ -1,6 +1,4 @@
-import { Log } from "../utils/misc.js";
-
-// NOTE: To run the script, use --> npm run cli:args
+import { Log } from "../utils/index.js";
 
 const parseArgs = () => {
   const map = {};

@@ -1,7 +1,7 @@
 import { createServer as createServerHttp } from 'http';
 import { release, version } from 'os';
 import path from 'path';
-import { Log } from '../utils/misc.js';
+import { Log } from '../utils/index.js';
 import './files/c.cjs';
 
 const PORT = 3000;

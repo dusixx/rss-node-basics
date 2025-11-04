@@ -5,25 +5,17 @@ import zlib from 'zlib';
 /**
  * @param {string} src 
  * @param {string} dst 
- * @param {{flag: 'gzip' | 'gunzip', deleteSource: boolean}} options
+ * @param {{method: 'Gzip' | 'Gunzip', deleteSource: boolean}} options
  */
-const process = async (src, dst, { action = 'gzip', deleteSource = true } = {}) => {
-  const gzip = zlib[action === 'gzip' ? 'createGzip' : 'createGunzip']();
+const create = async (src, dst, { method = 'Gzip', deleteSource = true } = {}) => {
+  const gzip = zlib[`create${method}`]();
   const readStream = fs.createReadStream(src);
   const writeStream = fs.createWriteStream(dst);
 
-  return new Promise((resolve) => {
-    writeStream.on('open', async () => {
-      await stream.pipeline(readStream, gzip, writeStream);
-
-      if (deleteSource) {
-        void fs.promises.unlink(src);
-      }
-      resolve();
-    }).on('close', () => {
-      writeStream.end();
-    });
-  })
+  await stream.pipeline(readStream, gzip, writeStream);
+  if (deleteSource) {
+    await fs.promises.unlink(src);
+  }
 };
 
 /**
@@ -31,7 +23,7 @@ const process = async (src, dst, { action = 'gzip', deleteSource = true } = {}) 
  * @param {string} dst 
  */
 export const gzipFile = async (src, dst) => {
-  return await process(src, dst);
+  return await create(src, dst, { method: 'Gzip' });
 }
 
 /**
@@ -39,5 +31,5 @@ export const gzipFile = async (src, dst) => {
  * @param {string} dst 
  */
 export const gunzipFile = async (src, dst) => {
-  return await process(src, dst, { action: 'gunzip' })
+  return await create(src, dst, { method: 'Gunzip' })
 }

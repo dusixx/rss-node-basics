@@ -16,9 +16,9 @@ export const pathExists = async (path) => {
 }
 
 export class FSOperationError extends Error {
-  constructor(message = Log.style("bgRedBright", "FS operation failed")) {
+  constructor(msg) {
     super();
-    this.message = message;
+    this.message = `${Log.style("red", "FS operation failed")}${msg ? `: ${msg}` : ''}`;
   }
 }
 
@@ -39,7 +39,12 @@ export const getDirents = async (dirPath) => {
 
 /**
  * @param {string} path 
- * @returns {Promise<{exists: boolean, readable: boolean, writeable: boolean, isFile: boolean}>}
+ * @returns {Promise<{
+ * exists: boolean, 
+ * readable: boolean, 
+ * writeable: boolean, 
+ * isFile: boolean, 
+ * isDirectory: boolean}>}
  */
 export const checkPath = async (path) => {
   const result = {};
@@ -54,6 +59,7 @@ export const checkPath = async (path) => {
   }
   const stats = await fs.stat(path);
   result.isFile = stats.isFile();
+  result.isDirectory = stats.isDirectory();
 
   return result;
 }
