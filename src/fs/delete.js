@@ -1,5 +1,17 @@
+import fs from 'fs/promises';
+import { checkPath, FSOperationError, Log, resolvePath } from "../utils/index.js";
+
+const SRC_PATH = 'fs/files/fileToRemove.txt';
+
 const remove = async () => {
-  // Write your code here
+  const src = resolvePath(SRC_PATH);
+
+  const { exists } = await checkPath(src);
+  if (!exists) {
+    throw new FSOperationError();
+  }
+  await fs.unlink(src);
+  console.log(Log.style("green", '✓ deleted:'), SRC_PATH);
 };
 
 await remove();

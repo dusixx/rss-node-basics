@@ -1,19 +1,23 @@
 import { EOL } from 'node:os';
-import { argv, stdout, stdin, exit } from 'node:process';
+import { argv, exit, stdin, stdout } from 'node:process';
 
 const args = argv.slice(2);
 
 console.log(`Total number of arguments is ${args.length}`);
 console.log(`Arguments: ${JSON.stringify(args)}${EOL}`);
 
-const echoInput = (chunk) => {
+stdin.on('data', (chunk) => {
   const chunkStringified = chunk.toString();
-
-  if (chunkStringified.includes('CLOSE')) {
+  if (chunkStringified.trim() === 'CLOSE') {
     exit(0);
   }
-
-  stdout.write(`Received from master process: ${chunk.toString()}${EOL}`);
-};
-
-stdin.on('data', echoInput);
+  stdout.write(`Received from master process: ${chunkStringified}`);
+});
+// handle IPC channel messages from parent
+process.on('message', (msg) => {
+  console.log("IPC channel testing:");
+  console.log(`[parent]: ${JSON.stringify(msg)}`);
+  if (process.send) {
+    process.send({ message: "Response from child", timestamp: Date.now() });
+  }
+});
